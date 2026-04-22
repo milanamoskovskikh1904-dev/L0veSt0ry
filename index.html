@@ -331,6 +331,21 @@
     margin-top: 20px;
 }
 
+.video-card video {
+    width: 100%;
+    height: 300px; /* Установи фиксированную высоту для всех видео */
+    object-fit: cover; /* Это САМОЕ ВАЖНОЕ: видео будет заполнять блок без искажений */
+    border-radius: 15px;
+    background: #000; /* Черный фон, если видео другого формата */
+}
+
+.video-card img {
+    width: 100%;
+    height: 300px; /* Такая же высота, как у видео, чтобы всё было в один ряд */
+    object-fit: cover; 
+    border-radius: 15px;
+}
+
     </style>
 </head>
 <body>
@@ -357,6 +372,19 @@
         </div>
     </section>
 
+    <section id="first-photo" class="reveal">
+    <h2 class="section-title">Всё началось с этого фото 🥰</h2>
+    <div class="video-grid" style="display: flex; justify-content: center;">
+        <div class="video-card" style="width: 100%; max-width: 500px; margin: 0 auto;">
+            <img src="img/13.jpeg" alt="Наше первое фото" style="width:100%; border-radius: 15px; border: 3px solid #ffd1dc;">
+            <div class="video-info" style="text-align: center;">
+                <h3>Наша первая фотография</h3>
+                <p>Хоть она и была сделана случайно, но очень греет душу и сердце</p>
+            </div>
+        </div>
+    </div>
+</section>
+
     <section id="gallery">
         <h2 class="reveal">Архив моментов</h2>
         <div class="gallery reveal">
@@ -372,8 +400,178 @@
             <img src="img/10.jpg" alt="10">
             <img src="img/2.jpg" alt="11">
             <img src="img/12.jpg" alt="12">
+            <img src="img/14.jpeg" alt="13">
+            <img src="img/16.jpeg" alt="14">
+            <img src="img/15.jpeg" alt="15">
         </div>
     </section>
+
+    <section id="gifts" class="reveal">
+    <h2 class="section-title">Подарочки</h2>
+    <div class="video-grid">
+        
+        <div class="video-card">
+            <img src="img/111.jpeg" alt="Подарок 1" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Букет цветов</h3>
+                <p>Первый шикарный букет на день рождения</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/999.mov" controls poster="img/preview.jpg"></video>
+            <div class="video-info">
+                <h3>Огромная мягкая жвачка</h3>
+                <p>Всегда напомнит, как сильно ты меня любишь</p>
+            </div>
+        </div>
+
+         <div class="video-card">
+            <img src="img/222.jpeg" alt="Подарок 3" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Украшения</h3>
+                <p>Самые шикарные и дорогие моему сердцу украшения</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <img src="img/333.jpeg" alt="Подарок 4" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Пылесос</h3>
+                <p>Незаменимый помощник в доме</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <img src="img/444.jpeg" alt="Подарок 5" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Украшения и Барбос</h3>
+                <p>На этом фото я уже с большим удовольствием бережно ношу украшения</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <img src="img/555.jpeg" alt="Подарок 6" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Роза</h3>
+                <p>Первый подарок на 14 февраля</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <img src="img/666.jpeg" alt="Подарок 7" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Барбос</h3>
+                <p>Благодаря этому мягкому другу мне всегда есть куда закинуть ножку во время сна</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <img src="img/777.jpeg" alt="Подарок 7" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Алиса</h3>
+                <p>Если мне станет одиноко, то у меня теперь есть хороший собеседник</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <img src="img/888.jpeg" alt="Подарок 7" style="width:100%; border-radius:15px;">
+            <div class="video-info">
+                <h3>Тюльпаны</h3>
+                <p>Первый подарок на 8 марта</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/10000.mp4" controls poster="img/preview.jpg"></video>
+            <div class="video-info">
+                <h3>Распаковка</h3>
+                <p>Для уставшей меня это было приятным конструктором</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/10001.mov" controls poster="img/preview.jpg"></video>
+            <div class="video-info">
+                <h3>Букет</h3>
+                <p>Попал в самое сердечко</p>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/10002.mov" controls poster="img/preview.jpg"></video>
+            <div class="video-info">
+                <h3>Love is...</h3>
+                <p>Жвачка, которая никогда не испортится</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <section id="warrior" class="reveal">
+    <h2 class="section-title">Мой воин 🛡️</h2>
+    <div class="video-grid">
+        
+        <div class="video-card">
+            <video src="/img/сво1.mov" controls playsinline preload="metadata" poster="img/preview1.jpg"></video>
+            <div class="video-info">
+                <h3>Ты - Моя любовь</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/сво2.mov" controls playsinline preload="metadata" poster="img/preview2.jpg"></video>
+            <div class="video-info">
+                <h3>Ты - Моя опора</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/сво3.mov" controls playsinline preload="metadata" poster="img/preview2.jpg"></video>
+            <div class="video-info">
+                <h3>Ты - Моё счастье</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/сво4.mov" controls playsinline preload="metadata" poster="img/preview2.jpg"></video>
+            <div class="video-info">
+                <h3>Ты - Мой герой</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/сво5.mov" controls playsinline preload="metadata" poster="img/preview2.jpg"></video>
+            <div class="video-info">
+                <h3>Ты - Моя радость</h3>
+            </div>
+        </div>
+
+        <div class="video-card">
+            <video src="img/сво6.mov" controls playsinline preload="metadata" poster="img/preview2.jpg"></video>
+            <div class="video-info">
+                <h3>Ты - Моя жизнь</h3>
+            </div>
+        </div>
+
+        </div>
+</section>
+
+<section id="kisses" class="reveal">
+    <h2 class="section-title">Поцелуи, от которых моё сердце никогда не перестанет биться чаще ❤️</h2>
+    <div class="video-grid">
+        
+        <div class="video-card">
+            <video src="img/чмок1.mov" controls playsinline preload="metadata"></video>
+        </div>
+
+        <div class="video-card">
+            <video src="img/чмок2.mov" controls playsinline preload="metadata"></video>
+        </div>
+
+    </div>
+</section>
 
     <section id="poem">
     <div class="poem-container reveal">
@@ -491,6 +689,27 @@
             <video src="img/картошка.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
             <p class="video-caption">Супер готовка</p>
         </div>
+
+        <div class="video-wrapper">
+            <video src="img/тольконесломайся.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Я всегда рядом</p>
+        </div>
+
+        <div class="video-wrapper">
+            <video src="img/сериал.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Наши теплые вечера</p>
+        </div>
+
+        <div class="video-wrapper">
+            <video src="img/неудержался.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Лучшие смены в моей жизни</p>
+        </div>
+
+        <div class="video-wrapper">
+            <video src="img/новыйгод.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Наш первый Новый Год</p>
+        </div>
+
 </section>
 
     <section id="secrets">
@@ -532,6 +751,20 @@
                     <div class="track-info">
                         <span class="track-title">Бесценные воспоминания</span>
                         <span class="track-desc">Воспоминания из подсобки</span>
+                    </div>
+                </div>
+                <div class="track-item" onclick="changeTrack('Наша история', 'music/track4.mp3', 'Я запечатлела свои чувства в песне')">
+                    <span style="font-size: 0.7rem; color: #ccc;">03</span>
+                    <div class="track-info">
+                        <span class="track-title">Наша история</span>
+                        <span class="track-desc">Я запечатлела свои чувства в песне</span>
+                    </div>
+                </div>
+                <div class="track-item" onclick="changeTrack('Я мечтаю...', 'music/track5.mp3', 'Мечтаю наконец обнять тебя')">
+                    <span style="font-size: 0.7rem; color: #ccc;">03</span>
+                    <div class="track-info">
+                        <span class="track-title">Я мечтаю...</span>
+                        <span class="track-desc">Мечтаю наконец обнять тебя</span>
                     </div>
                 </div>
             </div>
