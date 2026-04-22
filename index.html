@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>STORY | M&L</title>
+    <link rel="icon" type="image/png" href="img/love_3781064.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fdfaf7; /* кремовый */
+            --accent: #b8926a;    /* золотисто-песочный */
+            --text: #3d3d3d;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ЭФФЕКТ ЗЕРНИСТОСТИ */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Texture.png');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* НАВИГАЦИЯ (Mobile First - СНИЗУ) */
+        .nav-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .nav-bar a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .nav-bar a:hover, .nav-bar a.active {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        /* СЕКЦИИ */
+        section {
+            min-height: 100vh;
+            padding: 80px 25px 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        /* ГЛАВНЫЙ ЭКРАН */
+        .hero {
+            background: linear-gradient(rgba(253,250,247,0.6), rgba(253,250,247,0.6)), 
+                        url('https://images.unsplash.com/photo-1516589174184-c685266e430c?q=80&w=1974') center/cover;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        /* ТЕКСТОВЫЙ БЛОК */
+        .story-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+            max-width: 500px;
+        }
+
+        /* ГАЛЕРЕЯ */
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            filter: sepia(20%);
+        }
+
+        /* СЕКРЕТНЫЕ КНОПКИ */
+        .secret-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-secret {
+            padding: 12px 18px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            border-radius: 50px;
+            color: var(--accent);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-secret:active {
+            background: var(--accent);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        /* ПЛЕЙЛИСТ */
+        .playlist-box {
+            background: var(--white);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .track-item:active { background: #f9f4ee; }
+        
+        .track-info { margin-left: 15px; }
+        .track-title { font-size: 0.9rem; display: block; }
+        .track-desc { font-size: 0.7rem; color: #999; }
+
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 40px 25px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 400px;
+            position: relative;
+        }
+
+        /* АНИМАЦИИ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (min-width: 768px) {
+            .gallery { grid-template-columns: repeat(3, 1fr); }
+            .hero h1 { font-size: 5rem; }
+        }
+
+     /* ВИДЕО */
+        .video-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.video-wrapper {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+}
+
+.romantic-video {
+    width: 100%;
+    border-radius: 15px;
+    display: block;
+}
+
+.video-caption {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-style: italic;
+}
+
+@media screen and (min-width: 768px) {
+    .video-grid {
+        flex-direction: row; /* На ПК будут стоять рядом */
+    }
+}
+
+
+.video-grid {
+    display: grid;
+    /* Это создаст две колонки одинаковой ширины */
+    grid-template-columns: 1fr 1fr; 
+    gap: 15px; /* Расстояние между видео */
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.video-wrapper {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Чтобы на мобильных телефонах видео снова стали в один ряд (так удобнее смотреть) */
+ @media (max-width: 600px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* СТИХ */
+
+#poem {
+    background-color: #fdfaf7; /* Оставляем тот же теплый фон */
+    padding: 100px 20px;
+}
+
+.poem-container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.poem-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: #5a5a5a;
+    margin: 30px 0;
+    white-space: pre-line; /* Поможет сохранить переносы строк */
+}
+
+.poem-decor-line {
+    width: 50px;
+    height: 1px;
+    background-color: var(--accent);
+    margin: 0 auto;
+    opacity: 0.5;
+}
+
+.poem-signature {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="nav-bar">
+        <a href="#home">Начало</a>
+        <a href="#story">История</a>
+        <a href="#gallery">Моменты</a>
+        <a href="#secrets">Личное</a>
+        <a href="#music">Музыка</a>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="reveal">
+            <h1>M & L</h1>
+            <p style="letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase;">Глава о нас</p>
+        </div>
+    </section>
+
+    <section id="story">
+        <div class="story-card reveal">
+            <h2>Точка отсчета</h2>
+            <p>В мире миллионов людей, мы нашли свой тихий уголок. Каждое воспоминание здесь - это маленькая деталь огромного пазла нашей истории</p>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="reveal">Архив моментов</h2>
+        <div class="gallery reveal">
+            <img src="img/1.jpg" alt="1">
+            <img src="img/11.jpg" alt="2">
+            <img src="img/3.jpg" alt="3">
+            <img src="img/4.jpg" alt="4">
+            <img src="img/8.jpg" alt="5">
+            <img src="img/6.jpg" alt="6">
+            <img src="img/7.jpg" alt="7">
+            <img src="img/5.jpg" alt="8">
+            <img src="img/9.jpg" alt="9">
+            <img src="img/10.jpg" alt="10">
+            <img src="img/2.jpg" alt="11">
+            <img src="img/12.jpg" alt="12">
+        </div>
+    </section>
+
+    <section id="poem">
+    <div class="poem-container reveal">
+        <div class="poem-decor-line"></div>
+        <div class="poem-text">
+            <h1>Стихотворение</h1> 
+            <h2>«Признание»</h2>
+Случилось вдруг со мною счастье!
+В момент исчезли все ненастья!
+
+Порозовел,расцвел мой мир!
+Ведь человечек стал мне мил…
+
+Озарил он солнцем небо!
+-Дорогой мой,где ты бегал?
+
+Пока стояла на распутье,
+Пока жизнь казалась жутью…
+
+Не знала слов «тебя люблю»,
+«переживаю сильно, дома жду»
+
+Узнала, что значит «забота»,
+Когда к любимому охота…
+
+Когда народ тебе безлик,
+Но ЕГО увидишь сразу… в миг…
+
+Когда он гладит по головке…
+Не опишешь в заголовке
+
+Настолько мне родной,ценимый
+Мною бережно хранимый 
+
+С тобою,зай,познала счастье
+Не сравнятся даже сласти
+
+Ты заменил мне целый мир 
+И в жизни стал,как ориентир 
+
+Хочу с тобой, шагая в ногу
+То в жар,то в холод, непогоду
+
+Не смотря на все преграды -
+Смотреть лишь с тобою звездопады
+
+Наслаждаться каждым днем,
+Так как мы с тобой вдвоем 
+
+Тебя люблю я сильно,крепко 
+Моя любимая конфетка
+        </div>
+        <div class="poem-decor-line"></div>
+        <p class="poem-signature">С любовью, Кроха</p>
+    </div>
+</section>
+
+    <section id="cinema">
+    <h2 class="reveal">Наши воспоминания</h2>
+    <p class="reveal" style="margin-bottom: 30px; font-size: 0.9rem;">Включи звук, чтобы прочувствовать момент</p>
+    
+    <div class="video-grid reveal">
+        <div class="video-wrapper">
+            <video src="img/танец.mov" controls playsinline class="romantic-video" poster="poster1.jpg"></video>
+            <p class="video-caption">Самое начало...</p>
+        </div>
+
+        <div class="video-wrapper">
+            <video src="img/подсобка и пиво.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Первые посиделки</p>
+        </div>
+    
+
+    
+    <div class="video-wrapper">
+            <video src="img/кружок дегустаторов.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Здесь мы уже дегустаторы</p>
+        </div>
+    
+
+    <div class="video-wrapper">
+            <video src="img/ватсап.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Шокирующие новости</p>
+        </div>
+    
+
+    <div class="video-wrapper">
+            <video src="img/наушники.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Беззаботное времяпрепровождение</p>
+        </div>
+    
+
+    <div class="video-wrapper">
+            <video src="img/караоке.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Культурные посиделки</p>
+        </div>
+    
+
+    <div class="video-wrapper">
+            <video src="img/обзор.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Первый переезд</p>
+        </div>
+    
+        <div class="video-wrapper">
+            <video src="img/сюрприз.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Ценные моменты</p>
+        </div>
+
+        <div class="video-wrapper">
+            <video src="img/прогулка.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Ночные прогулки</p>
+        </div>
+
+        <div class="video-wrapper">
+            <video src="img/картошка.mov" controls playsinline class="romantic-video" poster="poster2.jpg"></video>
+            <p class="video-caption">Супер готовка</p>
+        </div>
+</section>
+
+    <section id="secrets">
+        <h2 class="reveal">Наше личное</h2>
+        <p class="reveal" style="margin-bottom: 25px; font-size: 0.9rem;">Нажми на то, что поймём только мы:</p>
+        <div class="secret-grid reveal">
+            <button class="btn-secret" onclick="openModal('Канфуз на катке', 'Помнишь, как ты забавно шмякнулся, когда мы катались на коньках? Эмоции с этого свидания я не забуду никогда')">Первое свидание</button>
+            <button class="btn-secret" onclick="openModal('Бусинка', 'Буся - наша малышка, наша первая ответственность и пушистая любовь')">Пушистый секрет</button>
+            <button class="btn-secret" onclick="openModal('02:15 ночи', 'Время, когда мы обсуждали всё на свете - от грусти до радости')">Полуночный вайб</button>
+            <button class="btn-secret" onclick="openModal('Мечта', 'Однажды мы проснёмся в нашем собственном уютном доме,  будучи самыми счастливыми победителями этой жизни')">Наше скоро</button>
+        </div>
+    </section>
+
+    <section id="music">
+        <h2 class="reveal">Плейлист</h2>
+        <div class="playlist-box reveal">
+            <div id="player-status" style="margin-bottom: 15px; font-size: 0.8rem; color: var(--accent);">Приятного прослушивания</div>
+            <audio id="audio-player" controls style="width: 100%; margin-bottom: 20px;">
+                <source id="audio-source" src="" type="audio/mpeg">
+            </audio>
+
+            <div class="track-list">
+                <div class="track-item" onclick="changeTrack('Покой в тишине', 'music/track1.mp3', 'Под неё мы молчали о важном')">
+                    <span style="font-size: 0.7rem; color: #ccc;">01</span>
+                    <div class="track-info">
+                        <span class="track-title">Покой в тишине</span>
+                        <span class="track-desc">Под неё мы молчали о важном</span>
+                    </div>
+                </div>
+                <div class="track-item" onclick="changeTrack('Ностальгия любви', 'music/track2.mp3', 'Та самая песня, под которую я в тебя влюблялась всё больше')">
+                    <span style="font-size: 0.7rem; color: #ccc;">02</span>
+                    <div class="track-info">
+                        <span class="track-title">Ностальгия любви</span>
+                        <span class="track-desc">Та самая песня, под которую я в тебя влюблялась всё больше</span>
+                    </div>
+                </div>
+                <div class="track-item" onclick="changeTrack('Бесценные воспоминания', 'music/track3.mp3', 'Воспоминания из подсобки')">
+                    <span style="font-size: 0.7rem; color: #ccc;">03</span>
+                    <div class="track-info">
+                        <span class="track-title">Бесценные воспоминания</span>
+                        <span class="track-desc">Воспоминания из подсобки</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 id="modal-title" style="font-family: 'Playfair Display'; margin-bottom: 15px;"></h3>
+            <p id="modal-text" style="font-size: 0.95rem;"></p>
+            <button class="btn-secret" style="margin-top: 20px;" onclick="closeModal()">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        // АНИМАЦИЯ ПРИ СКРОЛЛЕ
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // ЗАПУСК ПРИ ЗАГРУЗКЕ
+
+        // СЕКРЕТНЫЕ СООБЩЕНИЯ
+        function openModal(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerText = text;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // ПЕРЕКЛЮЧЕНИЕ ТРЕКОВ
+        function changeTrack(title, src, desc) {
+            const player = document.getElementById('audio-player');
+            const source = document.getElementById('audio-source');
+            const status = document.getElementById('player-status');
+
+            source.src = src;
+            player.load();
+            player.play();
+            status.innerText = "Играет: " + title;
+        }
+    </script>
+</body>
+</html>
